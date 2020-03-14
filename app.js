@@ -16,6 +16,22 @@ app.get("/api/hello", function(req, res) {
 	res.json("Hello API!");
 });
 
+app.get("/api/whoami", function(req, res) {
+  //get user-IP address
+  let userIP = req.headers["x-forwarded-for"].split(",")[0];
+  //get user-language
+  let userLang = req.headers["accept-language"];
+  //get user-software
+  let userSoftware = req.headers["user-agent"];
+  let resObject = {
+    "ipaddress": userIP,
+    "language": userLang,
+    "software": userSoftware    
+  }
+  res.json(resObject);
+});
+
+
 app.listen(process.env.PORT, function() {
 	console.log("App listening on port " + process.env.PORT + "!");
 });
