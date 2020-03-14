@@ -17,8 +17,8 @@ app.get("/api/hello", function(req, res) {
 });
 
 app.get("/api/whoami", function(req, res) {
-  //get user-IP address
-  let userIP = req.headers["x-forwarded-for"].split(",")[0];
+  //get user-IP address (from req.headers.x-forwarded-for if it exists, req.connection.remoteAddress if not)
+  let userIP = (req.headers["x-forwarded-for"]) ? req.headers["x-forwarded-for"].split(",")[0] : req.connection.remoteAddress;
   //get user-language
   let userLang = req.headers["accept-language"];
   //get user-software
